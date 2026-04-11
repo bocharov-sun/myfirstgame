@@ -1,53 +1,58 @@
 # Stickfall Arena
 
-Stickfall Arena is a browser ragdoll stickman arena with bots, falling weapons, achievements, classes, relics, cases, cosmetics, trades, boss fights, and a 100-floor tower mode.
+Stickfall Arena - браузерная ragdoll-арена про стикманов, ботов, падающее оружие, достижения, классы, реликвии, кейсы, косметику, трейды, боссов и башню на 100 этажей.
 
-The game is a static web project. It runs directly in the browser from `index.html`, so it can be published with GitHub Pages without a backend server.
+Проект сделан как статическая HTML-игра. Вся игра лежит в `index.html`, поэтому ее можно открыть прямо в браузере или опубликовать через GitHub Pages без сервера.
 
-## Play Locally
+## Играть локально
 
-Open `index.html` in a browser.
+Открой файл `index.html` в браузере.
 
-## Controls
+## Управление
 
-- `A` / `D` - move
-- `W` - jump
-- `E` - pick up weapon
-- `Space` - attack or use weapon
-- `Q` - drop weapon
-- `F` - use relic
-- `N` - change map
-- `H` - achievements
-- `Esc` - return to main menu
+- `A` / `D` - движение
+- `W` - прыжок
+- `E` - поднять оружие
+- `Space` - атака или использование оружия
+- `Q` - выбросить оружие
+- `F` - использовать реликвию
+- `N` - сменить карту
+- `H` - открыть достижения
+- `Esc` - выйти в главное меню
 
-Controls can be changed in the in-game settings menu.
+Управление можно изменить в настройках внутри игры.
 
-## Main Features
+## Что есть в игре
 
-- Ragdoll stickman battles against bots
-- Many weapon types with different attack visuals
-- Random weapon drops with rarity timing
-- Game modes: free-for-all, king of the hill, team battle, duel, octagram, and tower
-- 100-floor tower mode with boss fights and save support
-- Achievements and unlockable cosmetics
-- Crafting, cases, relics, and trade codes
-- Test map with a dummy and weapon selection
-- Local browser saves through `localStorage`
+- Бои ragdoll-стикманов против ботов
+- Много видов оружия с разными атаками и визуальными моделями
+- Падающее оружие с редкостями и разным временем появления
+- Режимы: каждый сам за себя, царь горы, командный бой, дуэль, октаграмма и башня
+- Башня на 100 этажей с сохранением прогресса и боссами
+- Достижения и косметические награды
+- Классы с плюсами и минусами
+- Крафт, кейсы, реликвии и трейды по коду
+- Тестовая карта с манекеном и выбором оружия
+- Локальные сохранения через браузерный `localStorage`
 
-## GitHub Pages
+## Публикация через GitHub Pages
 
-This project can be published from the repository root because `index.html` is at the top level.
+Проект можно публиковать из корня репозитория, потому что главный файл игры называется `index.html` и лежит в верхней папке.
 
-Recommended GitHub Pages settings:
+Настройки GitHub Pages:
 
-- Source: Deploy from a branch
+- Source: `Deploy from a branch`
 - Branch: `main`
 - Folder: `/ root`
 
-After GitHub Pages finishes deploying, the game should be available at:
+После публикации игра будет доступна по адресу:
 
 `https://bocharov-sun.github.io/myfirstgame/`
 
-## Notes
+## Важно про сохранения
 
-Progress is saved in the browser. A local file save and the GitHub Pages save are separate because browsers treat them as different origins.
+Прогресс хранится в браузере. Локальная версия игры и версия на GitHub Pages имеют разные сохранения, потому что браузер считает их разными сайтами.
+
+## Статус
+
+Игра находится в активной разработке. Баланс, оружие, косметика, режимы и боссы могут меняться.
