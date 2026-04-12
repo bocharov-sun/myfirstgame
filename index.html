@@ -188,7 +188,7 @@ const TURRET_BULLET={id:"turret_bullet",n:"Пуля золотой турели"
 RELICS.forEach(r=>save.relics[r.id]=1);
 const CLASS_RARITIES={common:{n:"Обычный",c:"#c9c6b7"},uncommon:{n:"Необычный",c:"#27d3a2"},rare:{n:"Редкий",c:"#7dd3fc"},legendary:{n:"Легендарный",c:"#ffd257"}};
 const ADMIN_RANKS={junior_admin:1,"junior-admin":1,junior:1,"младший_админ":1,"младший админ":1,moderator:1,mod:1,admin:2,"админ":2,senior_admin:3,owner:4,developer:5};
-function adminAllowed(){return (ADMIN_RANKS[String(save.adminRank||"").toLowerCase()]||0)>=1}
+function adminAllowed(){return (ADMIN_RANKS[String(save.adminRank||"").toLowerCase()]||0)>=1||!!(save.classes&&save.classes.admin)}
 const CLASS_DEFS=[
 {id:"fighter",n:"Боец",rarity:"common",cost:0,desc:"Быстрее двигается, чуть сильнее бьет ближним оружием, но реликвии перезаряжаются дольше.",stats:{speed:1.08,meleeDamage:1.05,pickupCd:.92,relicCd:1.1}},
 {id:"heavyweight",n:"Тяжеловес",rarity:"uncommon",cost:250,desc:"Больше здоровья и меньше отлетает, зато медленнее ходит и хуже прыгает.",stats:{hp:1.35,kbTaken:.72,speed:.85,jump:.8,heavyUse:1,attackCd:1.08}},
@@ -205,7 +205,7 @@ CLASS_RARITIES.secret={n:"Секретный",c:"#111827"};
 CLASS_RARITIES.admin={n:"Админский",c:"#ff4f5e"};
 CLASS_DEFS.push({id:"observer",n:"Наблюдатель",rarity:"secret",cost:0,secret:1,desc:"Каждый день получает тайный квест за детали. Быстрее подбирает оружие, но слабее в прямой драке.",stats:{hp:.9,damage:.95,pickupCd:.85,kbTaken:1.08}});
 CLASS_DEFS.push({id:"admin",n:"Админ",rarity:"admin",cost:0,secret:1,adminOnly:1,desc:"Секретный класс для младших админов и выше. Ужасающая аура пожирает здоровье врагов и лечит владельца; реликвии перезаряжаются быстрее.",stats:{hp:1.18,speed:1.06,damage:1.08,pickupCd:.82,kbTaken:.9,relicCd:.65,adminAura:1}});
-save.classes=save.classes||{};save.classes.fighter=1;if(adminAllowed())save.classes.admin=1;if(save.classId==="admin"&&!adminAllowed())save.classId="fighter";if(!CLASS_DEFS.some(c=>c.id===save.classId)||!save.classes[save.classId])save.classId="fighter";
+save.classes=save.classes||{};save.classes.fighter=1;if(adminAllowed()){save.classes.admin=1;if(!save.adminRank){save.adminRank="junior_admin";localStorage.setItem("stickfall-admin-rank","junior_admin")}}if(save.classId==="admin"&&!adminAllowed())save.classId="fighter";if(!CLASS_DEFS.some(c=>c.id===save.classId)||!save.classes[save.classId])save.classId="fighter";
 if(save.unlocked.SECRET_QUESTION)save.classes.observer=1;
 let lang=LANGS.some(([id])=>id===save.lang)?save.lang:"ru";
 let controls=Object.assign({},DEF_CONTROLS,save.controls||{}),binding="",inMenu=1,randomMaps=save.randomMaps!==false,botDifficulty=save.botDifficulty||"normal",botCount=Number.isFinite(+save.botCount)?+save.botCount:3,gameMode=GAME_MODES[save.gameMode]?save.gameMode:"deathmatch",mapChoice=save.mapChoice||"random",testWeapon=save.testWeapon||"",playerClass=save.classId||"fighter",cosmetics=Object.assign({color:"default",hat:"none",face:"none",trail:"none",spawnFx:"none",killFx:"none"},save.cosmetics||{}),activeRelic=("activeRelic" in save)?save.activeRelic:(save.relics.golden_field?"golden_field":""),mods=Object.assign({zeroG:false,sideDrops:false,bigWeapons:false,doubleDamage:false,doubleHealth:false,fastDrops:false,party:false},save.mods||{});
