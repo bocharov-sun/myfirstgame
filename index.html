@@ -193,7 +193,7 @@ const TURRET_BULLET={id:"turret_bullet",n:"Пуля золотой турели"
 RELICS.forEach(r=>{if(r.id!=="golden_field")save.relics[r.id]=1});syncCreatorRelic();if(creatorKeyAccepted)persist();
 const CLASS_RARITIES={common:{n:"Обычный",c:"#c9c6b7"},uncommon:{n:"Необычный",c:"#27d3a2"},rare:{n:"Редкий",c:"#7dd3fc"},legendary:{n:"Легендарный",c:"#ffd257"}};
 const ADMIN_RANKS={junior_admin:1,"junior-admin":1,junior:1,"младший_админ":1,"младший админ":1,moderator:1,mod:1,admin:2,"админ":2,senior_admin:3,owner:4,developer:5};
-function adminAllowed(){return (ADMIN_RANKS[String(save.adminRank||"").toLowerCase()]||0)>=1||!!(save.classes&&save.classes.admin)}
+function adminAllowed(){return creatorAllowed()||(ADMIN_RANKS[String(save.adminRank||"").toLowerCase()]||0)>=1||!!(save.classes&&save.classes.admin)}
 const CLASS_DEFS=[
 {id:"fighter",n:"Боец",rarity:"common",cost:0,desc:"Быстрее двигается, чуть сильнее бьет ближним оружием, но реликвии перезаряжаются дольше.",stats:{speed:1.08,meleeDamage:1.05,pickupCd:.92,relicCd:1.1}},
 {id:"heavyweight",n:"Тяжеловес",rarity:"uncommon",cost:250,desc:"Больше здоровья и меньше отлетает, зато медленнее ходит и хуже прыгает.",stats:{hp:1.35,kbTaken:.72,speed:.85,jump:.8,heavyUse:1,attackCd:1.08}},
