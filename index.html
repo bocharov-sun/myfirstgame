@@ -338,7 +338,7 @@ function useWeapon(f){if(!f.w)return;f.uses=(f.uses??classMaxUses(f,f.w))-1;if(f
 function weaponLabel(f){let base=f.w?`${f.w.n} (${Math.max(0,f.uses??classMaxUses(f,f.w))})`:"без оружия";return hasField(f)?base+" · Золотое поле":base}
 function gravity(){return G*(mods.zeroG ? .08 : 1)}
 function weaponScale(){return mods.bigWeapons?1.55:1}
-function weaponVisualScale(w){return({knife:.66,machete:.86,brick:.78,hammer:.9,pan:.88,wrench:.88,throwing_disc:.82,pistol:.72,taser:.72,fire_extinguisher:.86,golden_chicken:.82,teleport_bread:.78,portal_grenade:.82,sticky_bomb:.82,magnetic_glove:.84,acid_blob:.78}[w?.id]||1)}
+function weaponVisualScale(w){return({knife:.48,machete:.7,hammer:1.18,gravity_hammer:1.24,rocket_hammer:1.25,brick:.78,pan:.88,wrench:.88,throwing_disc:.82,pistol:.72,taser:.72,fire_extinguisher:.86,golden_chicken:.82,teleport_bread:.78,portal_grenade:.82,sticky_bomb:.82,magnetic_glove:.84,acid_blob:.78}[w?.id]||1)}
 function damageMul(){return mods.doubleDamage?2:1}
 function dropRateMul(){return mods.fastDrops ? .55 : 1}
 function rarity(w){return w.p>=3?"common":w.p>=1.5?"uncommon":w.p>=.8?"rare":"legendary"}
