@@ -316,7 +316,7 @@ function fallbackHash(s){let h1=2166136261,h2=16777619;for(let i=0;i<s.length;i+
 async function hashPassword(pass,salt){let text=salt+"|"+pass;if(crypto.subtle&&typeof TextEncoder!=="undefined"){let data=new TextEncoder().encode(text),dig=await crypto.subtle.digest("SHA-256",data);return"sha256-"+hex(dig)}return fallbackHash(text)}
 function profileUnlocked(){let h=save.profile&&save.profile.passHash;if(!h)return 1;return sessionStorage.getItem("stickfall-profile-unlocked")===h}
 function profileLocked(){return !profileUnlocked()}
-function requireProfileUnlock(){if(!profileLocked())return 0;setMenu(1);updateProfileLock();toast("Профиль закрыт","Введи пароль, чтобы открыть сохранение.");return 1}
+function requireProfileUnlock(){return 0}
 function savePrefs(){playerClass=normalizePlayerClass(playerClass,save.classId);save.profile=Object.assign({name:"Игрок",salt:"",passHash:""},save.profile||{});save.profile.name=playerName();save.controls=controls;save.lang=lang;save.randomMaps=randomMaps;save.botDifficulty=botDifficulty;save.botCount=botCount;save.gameMode=gameMode;save.mapChoice=mapChoice;save.testWeapon=testWeapon;save.classId=playerClass;save.classes=save.classes;save.adminRank=save.adminRank;save.creatorId=save.creatorId;save.cosmetics=cosmetics;save.crafted=save.crafted;if(activeRelic==="golden_field"&&!creatorAllowed())activeRelic="";syncCreatorRelic();save.relics=save.relics;save.parts=save.parts;save.tradeId=save.tradeId;save.trades=save.trades;save.activeRelic=activeRelic;save.mods=mods;persist()}
 function keyName(code){return code==="Space"?"Space":code.replace(/^Key/,"").replace(/^Digit/,"").replace(/^Arrow/,"Arrow ")}
 function controlName(a){let en={left:"Left",right:"Right",jump:"Jump",pickup:"Pick up weapon",attack:"Attack / use",drop:"Drop weapon",relic:"Use relic",map:"Change map",ach:"Achievements"};return lang==="ru"?(CONTROL_NAMES[a]||a):(en[a]||CONTROL_NAMES[a]||a)}
@@ -396,7 +396,7 @@ async function checkProfilePassword(){if(profileLocked()){updateProfileLock();re
 function clearProfilePass(){if(profileLocked()){updateProfileLock();return}save.profile.salt="";save.profile.passHash="";sessionStorage.removeItem("stickfall-profile-unlocked");savePrefs();renderProfile();updateProfileLock();toast("Пароль убран","Профиль больше не блокируется при входе.")}
 function lockProfile(){if(!save.profile.passHash){renderProfile();return}sessionStorage.removeItem("stickfall-profile-unlocked");updateProfileLock()}
 function gainParts(n,why){if(inMenu)return;save.parts+=n;persist();if(craftPanel.classList.contains("open"))renderCraft();if(classPanel.classList.contains("open"))renderClassShop();if(tradePanel.classList.contains("open"))renderTrade();if(!fighters[0]?.bot)toast("Детали +"+n,why)}
-function showProfile(){let open=!profilePanel.classList.contains("open");closeMenuPanels();if(open)profilePanel.classList.add("open");renderProfile()}
+function showProfile(){if(profileLocked()){updateProfileLock();return}let open=!profilePanel.classList.contains("open");closeMenuPanels();if(open)profilePanel.classList.add("open");renderProfile()}
 function showCraft(){let open=!craftPanel.classList.contains("open");closeMenuPanels();if(open)craftPanel.classList.add("open");renderCraft()}
 function showClasses(){let open=!classPanel.classList.contains("open");closeMenuPanels();if(open)classPanel.classList.add("open");renderClassShop()}
 function showRelics(){let open=!relicPanel.classList.contains("open");closeMenuPanels();if(open)relicPanel.classList.add("open");renderRelics()}
@@ -945,7 +945,7 @@ document.getElementById("profileBtn").onclick=()=>showProfile();document.getElem
 langChoice.onchange=()=>{lang=langChoice.value;savePrefs();applyLanguage()};
 saveTowerBtn.onclick=()=>saveTowerRun(1);continueTowerBtn.onclick=()=>continueTowerRun();clearTowerBtn.onclick=()=>clearTowerSave(1);
 document.querySelectorAll(".touch button").forEach(b=>{let c=()=>b.dataset.a?controls[b.dataset.a]:b.dataset.k;b.onpointerdown=e=>{e.preventDefault();let k=c();if(!keys.has(k))press.add(k);keys.add(k);b.setPointerCapture(e.pointerId)};b.onpointerup=e=>{e.preventDefault();keys.delete(c())};b.onpointercancel=()=>keys.delete(c())});
-resize();initLanguageSelect();applyLanguage();renderAch();renderCosmetics();renderCraft();renderRelics();renderProfile();renderTrade();checkCollectionAchievements();reset(Math.floor(R()*MAPS.length));setMenu(1);showSecretVisitor();updateProfileLock();if(creatorKeyAccepted)toast("Ключ создателя","Золотое поле закреплено за тобой.");requestAnimationFrame(loop);
+resize();initLanguageSelect();applyLanguage();renderAch();renderCosmetics();renderCraft();renderRelics();renderProfile();renderTrade();checkCollectionAchievements();reset(Math.floor(R()*MAPS.length));setMenu(1);showSecretVisitor();if(creatorKeyAccepted)toast("Ключ создателя","Золотое поле закреплено за тобой.");requestAnimationFrame(loop);
 })();
 </script>
 </body>
