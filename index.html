@@ -20,6 +20,13 @@ body.menu-open .hud .top,body.menu-open .hud .help,body.menu-open .hud .touch{di
 .achScroll::-webkit-scrollbar-track,.craftList::-webkit-scrollbar-track,#profileFriends::-webkit-scrollbar-track,.settings.open::-webkit-scrollbar-track,.panel.menuCard::-webkit-scrollbar-track,.bars::-webkit-scrollbar-track{background:rgba(255,255,255,.08);border-left:1px solid rgba(255,255,255,.14);border-radius:8px}
 .achScroll::-webkit-scrollbar-thumb,.craftList::-webkit-scrollbar-thumb,#profileFriends::-webkit-scrollbar-thumb,.settings.open::-webkit-scrollbar-thumb,.panel.menuCard::-webkit-scrollbar-thumb,.bars::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#ffd257,#27d3a2);border:3px solid rgba(20,21,17,.9);border-radius:8px;min-height:44px}
 .achScroll::-webkit-scrollbar-thumb:hover,.craftList::-webkit-scrollbar-thumb:hover,#profileFriends::-webkit-scrollbar-thumb:hover,.settings.open::-webkit-scrollbar-thumb:hover,.panel.menuCard::-webkit-scrollbar-thumb:hover,.bars::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#fff0a6,#34efbb)}
+.craftCard{grid-template-columns:minmax(0,1fr) auto;overflow:visible}
+.craftCard>div,.controlRow>span,.menuStats span,.tutorialCard,.smallNote{min-width:0;overflow-wrap:anywhere}
+.craftCard strong,.craftCard span{overflow-wrap:anywhere;word-break:break-word}
+.craftCard button{justify-self:end;max-width:150px;min-width:74px;white-space:normal;line-height:1.15}
+.craftCard .pill{justify-self:end}
+.controlRow{grid-template-columns:minmax(0,1fr) minmax(150px,280px)}
+.menuStats span{padding-right:34px}
 </style>
 </head>
 <body>
