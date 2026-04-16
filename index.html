@@ -20,6 +20,11 @@ body.menu-open .hud .top,body.menu-open .hud .help,body.menu-open .hud .touch{di
 .achScroll::-webkit-scrollbar-track,.craftList::-webkit-scrollbar-track,#profileFriends::-webkit-scrollbar-track,.settings.open::-webkit-scrollbar-track,.panel.menuCard::-webkit-scrollbar-track,.bars::-webkit-scrollbar-track{background:rgba(255,255,255,.08);border-left:1px solid rgba(255,255,255,.14);border-radius:8px}
 .achScroll::-webkit-scrollbar-thumb,.craftList::-webkit-scrollbar-thumb,#profileFriends::-webkit-scrollbar-thumb,.settings.open::-webkit-scrollbar-thumb,.panel.menuCard::-webkit-scrollbar-thumb,.bars::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#ffd257,#27d3a2);border:3px solid rgba(20,21,17,.9);border-radius:8px;min-height:44px}
 .achScroll::-webkit-scrollbar-thumb:hover,.craftList::-webkit-scrollbar-thumb:hover,#profileFriends::-webkit-scrollbar-thumb:hover,.settings.open::-webkit-scrollbar-thumb:hover,.panel.menuCard::-webkit-scrollbar-thumb:hover,.bars::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#fff0a6,#34efbb)}
+.menu{place-items:start center;align-content:start;overflow-y:auto;overscroll-behavior:contain}
+.panel.menuCard{width:min(680px,100%);max-height:none;overflow:visible;margin:0}
+.settings.open{max-height:none;overflow:visible;min-height:0}
+.menu,.menu *{flex-shrink:0}
+.menu::-webkit-scrollbar{width:16px;height:16px}.menu::-webkit-scrollbar-track{background:rgba(255,255,255,.08);border-left:1px solid rgba(255,255,255,.14);border-radius:8px}.menu::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#ffd257,#27d3a2);border:3px solid rgba(20,21,17,.9);border-radius:8px;min-height:44px}.menu::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#fff0a6,#34efbb)}
 </style>
 </head>
 <body>
@@ -1072,7 +1077,7 @@ function loop(now){let frame=Math.min(.05,(now-last)/1000);last=now;acc+=frame;w
 function typingTarget(el){return el&&(el.isContentEditable||["INPUT","TEXTAREA","SELECT"].includes(el.tagName))}
 addEventListener("resize",resize);addEventListener("pointermove",setMouse);addEventListener("pointerdown",pointerDown);addEventListener("pointerup",pointerUp);addEventListener("pointercancel",pointerUp);addEventListener("contextmenu",e=>{if(e.target===cvs||binding)e.preventDefault()});addEventListener("keydown",e=>{if(typingTarget(e.target)&&!binding)return;if(binding){bindControl(e.code,"Клавиша сохранена.");e.preventDefault();return}if(!keys.has(e.code))press.add(e.code);keys.add(e.code);if(Object.values(controls).includes(e.code)||["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].includes(e.code))e.preventDefault();if(e.code===controls.map)reset(towerOn()?towerMap():(randomMaps?randomMap():mapI+1));if(e.code==="KeyR")reset(towerOn()?towerMap():(randomMaps?randomMap():mapI));if(e.code===controls.ach)toggleAchievements();if(e.code==="Escape")exitToMainMenu()});addEventListener("keyup",e=>keys.delete(e.code));
 addEventListener("beforeunload",()=>{if(tower.active)saveTowerRun(0)});
-function scrollBox(e){return e.target.closest?.(".achScroll,.craftList,.settings.open,.panel.menuCard")}
+function scrollBox(e){let el=e.target.closest?.(".achScroll,.craftList,.settings.open,.panel.menuCard,.menu");while(el&&!canScrollBox(el))el=el.parentElement?.closest?.(".achScroll,.craftList,.settings.open,.panel.menuCard,.menu");return el}
 function canScrollBox(el){return el&&el.scrollHeight>el.clientHeight+2}
 function beginScrollDrag(el,id,y){menuDrag={id,el,y,top:el.scrollTop,moved:0};el.classList.add("dragging")}
 function moveScrollDrag(y,e){if(!menuDrag)return;let dy=menuDrag.y-y;menuDrag.moved=Math.max(menuDrag.moved,Math.abs(dy));menuDrag.el.scrollTop=menuDrag.top+dy;if(menuDrag.moved>2&&e){e.preventDefault();e.stopPropagation()}}
